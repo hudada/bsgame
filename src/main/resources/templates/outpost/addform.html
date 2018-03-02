@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8"></meta>
+<title>游戏后台管理</title>
+<!-- Bootstrap -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"
+	media="screen" />
+<link th:href="@{/css/bootstrap-responsive.min.css}" rel="stylesheet"
+	media="screen" />
+<link th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+</head>
+
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#">游戏后台管理</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav pull-right">
+						<li class="dropdown"><a th:inline="text" href="#"
+							role="button" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="icon-user"></i>你好，[[${name}]]<i class="caret"></i>
+
+						</a>
+							<ul class="dropdown-menu">
+								<li class="divider"></li>
+								<li><a tabindex="-1" href="/logout">退出登录</a></li>
+							</ul></li>
+					</ul>
+					<ul class="nav">
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3" id="sidebar">
+				<ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+					<li><a href="#">用户</a></li>
+					<li><a href="/userManager"><i class="icon-chevron-right"></i>用户列表</a>
+					</li>
+					<li><a href="#">关卡</a></li>
+					<li class="active"><a href="/outpostAdd"><i
+							class="icon-chevron-right"></i>新增关卡</a></li>
+					<li><a href="/outpostManager"><i
+							class="icon-chevron-right"></i>关卡列表</a></li>
+				</ul>
+			</div>
+			<!--/span-->
+			<div class="span9" id="content">
+				<!-- validation -->
+				<div class="row-fluid">
+					<!-- block -->
+					<div class="block">
+						<div class="navbar navbar-inner block-header">
+							<div class="muted pull-left">新增关卡</div>
+						</div>
+						<div class="block-content collapse in">
+							<div class="span12">
+								<!-- BEGIN FORM-->
+								<form action="#" id="form_sample_1" class="form-horizontal">
+									<fieldset>
+										<div class="control-group">
+											<label class="control-label" for="focusedInput">关卡</label>
+											<div class="controls">
+												<div>
+													<input id="ipt_3"
+														onchange="value=value.replace(/[^\d]/g,'')"
+														onkeyup="value=value.replace(/[^\d]/g,'')"
+														class="input-xlarge focused" type="text" placeholder="第几关" />
+												</div>
+											</div>
+
+										</div>
+
+										<div class="control-group">
+											<label class="control-label" for="focusedInput">过关指令</label>
+											<div class="controls">
+												<div>
+													<textarea disabled="disabled"
+														style="height: 200px; width: 500px;"
+														class="input-xlarge focused" id="ipt_0" type="text"
+														placeholder="请点击下方按钮，录入过关指令"></textarea>
+													<button onclick="btn_code_back()" type="button" class="btn">回退</button>
+												</div>
+											</div>
+
+										</div>
+										<div class="control-group">
+											<label class="control-label" for="focusedInput">普通指令</label>
+											<div class="controls">
+												<button style="margin-right: 5px;"
+													onclick="btn_code('the_one',$(this).html())" type="button"
+													class="btn">前进一步</button>
+												<button style="margin-right: 5px;"
+													onclick="btn_code('the_left',$(this).html())" type="button"
+													class="btn">向左转</button>
+												<button style="margin-right: 5px;"
+													onclick="btn_code('the_right',$(this).html())"
+													type="button" class="btn">向右转</button>
+												<button style="margin-right: 5px;"
+													onclick="btn_code('the_jump',$(this).html())" type="button"
+													class="btn">跳跃</button>
+											</div>
+
+										</div>
+
+										<div class="control-group">
+											<label class="control-label" for="focusedInput">循环指令</label>
+											<div class="controls">
+												<select id="ipt_1" class="span6 m-wrap">
+													<option checked="checked" value="1">前进一步</option>
+													<option value="2">向左转</option>
+													<option value="3">向右转</option>
+													<option value="4">跳跃</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="control-group">
+											<label class="control-label" for="focusedInput">循环次数</label>
+											<div class="controls">
+												<input id="ipt_2" value="2"
+													onchange="value=value.replace(/[^\d]/g,'')"
+													onkeyup="value=value.replace(/[^\d]/g,'')"
+													class="input-xlarge focused" type="text"
+													placeholder="请输入循环次数" />
+												<button onclick="btn_loop()" class="btn btn-primary">添加循环指令</button>
+											</div>
+										</div>
+
+										<div class="form-actions">
+											<button onclick="btn_cancel()" type="button" class="btn">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+											<button onclick="btn_ok()" class="btn btn-primary">添&nbsp;&nbsp;&nbsp;&nbsp;加</button>
+										</div>
+									</fieldset>
+								</form>
+								<!-- END FORM-->
+							</div>
+						</div>
+					</div>
+					<!-- /block -->
+				</div>
+				<!-- /validation -->
+
+
+			</div>
+		</div>
+	</div>
+	<!--/.fluid-container-->
+	<link th:href="@{/vendors/datepicker.css}" rel="stylesheet"
+		media="screen" />
+	<link th:href="@{/vendors/uniform.default.css}" rel="stylesheet"
+		media="screen" />
+	<link th:href="@{/vendors/chosen.min.css}" rel="stylesheet"
+		media="screen" />
+
+	<link th:href="@{/vendors/wysiwyg/bootstrap-wysihtml5.css}"
+		rel="stylesheet" media="screen" />
+
+	<script th:src="@{/js/jquery-1.9.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+
+	<script th:src="@{/vendors/jquery.uniform.min.js}"></script>
+	<script th:src="@{/vendors/chosen.jquery.min.js}"></script>
+	<script th:src="@{/vendors/bootstrap-datepicker.js}"></script>
+
+	<script th:src="@{/vendors/wysiwyg/wysihtml5-0.3.0.js}"></script>
+	<script th:src="@{/vendors/wysiwyg/bootstrap-wysihtml5.js}"></script>
+
+	<script th:src="@{/vendors/wizard/jquery.bootstrap.wizard.min.js}"></script>
+
+	<script type="text/javascript"
+		th:src="@{/vendors/jquery-validation/dist/jquery.validate.min.js}"></script>
+	<script th:src="@{/assets/form-validation.js}"></script>
+
+	<script th:src="@{/assets/scripts.js}"></script>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		jQuery(document).ready(function() {
+			FormValidation.init();
+		});
+
+		$(function() {
+			$(".datepicker").datepicker();
+			$(".uniform_on").uniform();
+			$(".chzn-select").chosen();
+			$('.textarea').wysihtml5();
+
+			$('#rootwizard').bootstrapWizard(
+					{
+						onTabShow : function(tab, navigation, index) {
+							var $total = navigation.find('li').length;
+							var $current = index + 1;
+							var $percent = ($current / $total) * 100;
+							$('#rootwizard').find('.bar').css({
+								width : $percent + '%'
+							});
+							// If it's the last tab then hide the last button and show the finish instead
+							if ($current >= $total) {
+								$('#rootwizard').find('.pager .next').hide();
+								$('#rootwizard').find('.pager .finish').show();
+								$('#rootwizard').find('.pager .finish')
+										.removeClass('disabled');
+							} else {
+								$('#rootwizard').find('.pager .next').show();
+								$('#rootwizard').find('.pager .finish').hide();
+							}
+						}
+					});
+			$('#rootwizard .finish').click(function() {
+				alert('Finished!, Starting over!');
+				$('#rootwizard').find("a[href*='tab1']").trigger('click');
+			});
+		});
+
+		var cmds = "";
+		var showCmds = "";
+
+		function btn_code(cmd, show) {
+			if (showCmds != "") {
+				showCmds += " -- " + show;
+			} else {
+				showCmds += show;
+			}
+			if (cmds != "") {
+				cmds += "," + cmd;
+			} else {
+				cmds += cmd;
+			}
+
+			$("#ipt_0").html(showCmds);
+		}
+
+		function btn_code_back() {
+			if (cmds != "") {
+				var i = cmds.lastIndexOf(",");
+				cmds = cmds.substr(0, i);
+
+				var ii = showCmds.lastIndexOf(" -- ");
+				showCmds = showCmds.substr(0, ii);
+
+				$("#ipt_0").html(showCmds);
+			}
+		}
+
+		
+		function btn_loop() {
+			var ipt_2 = $("#ipt_2").val();
+			ipt_2 = $.trim(ipt_2);
+			if (ipt_2 == "") {
+				alert("循环次数为2~7次");
+				return;
+			}
+
+			var intval = parseInt(ipt_2);
+			if (intval < 2 || intval > 7) {
+				alert("循环次数为2~7次")
+				return;
+			}
+
+			var cmd = "";
+			var show = "";
+			var ipt_1 = $("#ipt_1").val();
+			if (ipt_1 == "1") {
+				cmd = "the_one";
+				show = "前进一步";
+			} else if (ipt_1 == "2") {
+				cmd = "the_left";
+				show = "向左转";
+			} else if (ipt_1 == "3") {
+				cmd = "the_right";
+				show = "向右转";
+			} else if (ipt_1 == "4") {
+				cmd = "the_jump";
+				show = "跳跃";
+			}
+
+			var cmdlist = cmd + "-" + intval;
+			var showlist = show + "-" + intval + "次";
+
+			btn_code("loop[" + cmdlist + "]", "循环[" + showlist + "]");
+		}
+		
+
+		function btn_cancel() {
+			window.location.href = "/outpostManager";
+		}
+
+		function btn_ok() {
+			var ipt_3 = $("#ipt_3").val();
+			var ipt_0 = $("#ipt_0").html();
+
+			ipt_0 = $.trim(ipt_0);
+			ipt_3 = $.trim(ipt_3);
+			if (ipt_3 == "") {
+				alert("请输入关卡数")
+				return;
+			}
+			
+			if(parseInt(ipt_3) < 6){
+				alert("前5关为教学关卡写入app，不在后台编辑");
+				return;
+			}
+			
+			if (ipt_0 == "") {
+				alert("请录入指令")
+				return;
+			}
+
+			var data = '{"cmds" : "' + cmds + '","showCmds":"' + ipt_0
+					+ '","theOrder":"' + ipt_3 + '" }';
+			$.ajax({
+				url : "/page/outpost/add",
+				type : "POST",
+				datatype : "JSON",
+				contentType : "application/json;charset=utf-8",
+				data : data,
+				success : function(obj) {
+					if (obj.code == 0) {
+						btn_cancel();
+					} else {
+						alert(obj.message);
+					}
+				},
+				error : function() {
+					alert("提交失败！");
+				}
+			});
+		}
+		/*]]>*/
+	</script>
+</body>
+
+</html>
